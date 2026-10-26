@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bazaar Lane – Online Shopping</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --ink:#1c2b33; --muted:#66757d; --paper:#f6f4ef; --card:#fff; --line:#e4e0d6;
+  --brand:#0e7c6b; --brand-dark:#0a5c4f; --accent:#f4a81d; --sale:#d6402f;
+  --r:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Figtree',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
+h1,h2,h3,h4,.logo{font-familPy:'Bricolage Grotesque',sans-serif;line-height:1.15}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.section{padding-top:36px}
+
+/* Header */
+.header{background:var(--card);position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line)}
+.topbar{background:var(--ink);color:#fff;font-size:.8rem;text-align:center;padding:6px 12px}
+.nav{display:flex;align-items:center;gap:20px;padding-top:14px;padding-bottom:14px}
+.logo{font-size:1.6rem;font-weight:800}
+.logo span{color:var(--brand)}
+.logo.light{color:#fff}.logo.light span{color:var(--accent)}
+.search{flex:1;display:flex;border:2px solid var(--brand);border-radius:var(--r);overflow:hidden}
+.search input{flex:1;border:0;padding:10px 14px;min-width:0;background:#fff}
+.search input:focus{outline:none}
+.search button{border:0;background:var(--brand);color:#fff;padding:0 20px;font-weight:600}
+.search button:hover{background:var(--brand-dark)}
+.cart-btn{border:1px solid var(--line);background:#fff;padding:10px 16px;border-radius:var(--r);font-weight:600;display:flex;gap:8px;align-items:center}
+.badge{background:var(--sale);color:#fff;border-radius:99px;font-size:.75rem;min-width:22px;height:22px;display:grid;place-items:center;padding:0 6px}
+.catnav{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
+.catnav button{border:0;background:none;padding:6px 14px;border-radius:99px;white-space:nowrap;color:var(--muted);font-weight:500}
+.catnav button:hover{background:var(--paper)}
+.catnav button.active{background:var(--ink);color:#fff}
+
+/* Hero */
+.hero{margin-top:24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  background:var(--brand);color:#fff;border-radius:16px;padding:56px 48px;max-width:1160px;
+  background-image:radial-gradient(circle at 85% 20%,rgba(244,168,29,.35),transparent 45%)}
+.hero h1{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:800;max-width:14ch}
+.hero p{margin:14px 0 24px;max-width:42ch;opacity:.92}
+.btn{display:inline-block;background:var(--accent);color:var(--ink);border:0;padding:12px 26px;border-radius:var(--r);font-weight:700}
+.btn:hover{filter:brightness(.95)}
+.btn.block{width:100%;text-align:center}
+.hero-deal{background:#fff;color:var(--ink);border-radius:50%;width:170px;height:170px;display:grid;place-content:center;text-align:center;transform:rotate(-8deg);box-shadow:0 8px 0 var(--accent)}
+.hero-deal strong{font-family:'Bricolage Grotesque';font-size:1.5rem;color:var(--sale)}
+.hero-deal span{font-size:.8rem;color:var(--muted)}
+
+/* Categories */
+h2{font-size:1.5rem;margin-bottom:16px}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.cat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 10px;text-align:center;font-weight:600}
+.cat:hover{border-color:var(--brand)}
+.cat .ico{font-size:2rem;display:block;margin-bottom:6px}
+
+/* Products */
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.section-head h2{margin:0}
+select{padding:8px 12px;border:1px solid var(--line);border-radius:var(--r);background:#fff}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.card:hover{box-shadow:0 6px 18px rgba(28,43,51,.1)}
+.card .img{aspect-ratio:4/3;background:#ece8dd;position:relative}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.tag{position:absolute;top:10px;left:10px;background:var(--sale);color:#fff;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:6px}
+.card .body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:1rem;font-weight:600;font-family:'Figtree'}
+.rating{font-size:.8rem;color:var(--muted)}
+.price{margin-top:auto;font-weight:700;font-size:1.1rem}
+.price s{color:var(--muted);font-weight:400;font-size:.85rem;margin-left:6px}
+.add{border:2px solid var(--brand);background:#fff;color:var(--brand);padding:8px;border-radius:var(--r);font-weight:700}
+.add:hover{background:var(--brand);color:#fff}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+
+/* Cart drawer */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:30}
+.overlay.show{opacity:1;pointer-events:auto}
+.cart{position:fixed;top:0;right:0;height:100%;width:min(400px,100%);background:#fff;z-index:40;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s}
+.cart.open{transform:none}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.cart-head button{border:0;background:none;font-size:2rem;line-height:1}
+.cart-items{flex:1;overflow-y:auto;padding:10px 20px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.item img{width:64px;height:64px;object-fit:cover;border-radius:8px;background:#ece8dd}
+.item h4{font-size:.9rem;font-family:'Figtree';font-weight:600}
+.item small{color:var(--muted)}
+.qty{display:flex;align-items:center;gap:8px;margin-top:4px}
+.qty button{width:26px;height:26px;border:1px solid var(--line);background:#fff;border-radius:6px}
+.rm{border:0;background:none;color:var(--sale);font-size:.8rem}
+.cart-foot{padding:18px 20px;border-top:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;margin-bottom:12px;font-size:1.1rem}
+
+/* Footer */
+.footer{background:var(--ink);color:#cfd6da;margin-top:56px;padding-top:40px}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:28px}
+.footer h4{color:#fff;margin-bottom:10px}
+.footer a{display:block;padding:3px 0;font-size:.9rem}
+.footer a:hover{color:var(--accent)}
+.news{display:flex;gap:6px}
+.news input{flex:1;min-width:0;padding:9px;border-radius:8px;border:0}
+.news button{border:0;background:var(--accent);padding:0 14px;border-radius:8px;font-weight:700}
+.copy{text-align:center;font-size:.8rem;padding:24px 12px;margin-top:28px;border-top:1px solid #31434d}
+
+/* Responsive */
+@media (max-width:720px){
+  .nav{flex-wrap:wrap;gap:12px}
+  .search{order:3;flex-basis:100%}
+  .hero{grid-template-columns:1fr;padding:36px 24px;margin:16px 12px}
+  .hero-deal{display:none}
+  .product-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="header">
+    <div class="topbar">Free delivery on orders above Rs. 3,000 &nbsp;|&nbsp; Cash on delivery available</div>
+    <div class="container nav">
+      <a href="#" class="logo">Bazaar<span>Lane</span></a>
+      <form class="search" id="searchForm" role="search">
+        <input type="search" id="searchInput" placeholder="Search for products" aria-label="Search products">
+        <button type="submit">Search</button>
+      </form>
+      <button class="cart-btn" id="openCart" aria-label="Open cart">
+        Cart <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+    <nav class="container catnav" id="catNav" aria-label="Categories"></nav>
+  </header>
+
+  <main>
+    <!-- BANNER -->
+    <section class="container hero">
+      <div class="hero-text">
+        <h1>Big savings on everyday things.</h1>
+        <p>Electronics, fashion and home essentials at prices that make sense.</p>
+        <a href="#products" class="btn">Shop now</a>
+      </div>
+      <div class="hero-deal">
+        <strong>Up to 40% off</strong>
+        <span>Sale ends Sunday</span>
+      </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="container section">
+      <h2>Shop by category</h2>
+      <div class="cat-grid" id="catGrid"></div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="container section" id="products">
+      <div class="section-head">
+        <h2 id="productsTitle">All products</h2>
+        <select id="sortSelect" aria-label="Sort products">
+          <option value="default">Sort: Featured</option>
+          <option value="low">Price: low to high</option>
+          <option value="high">Price: high to low</option>
+        </select>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="logo light">Bazaar<span>Lane</span></div>
+        <p>Your neighbourhood market, online.</p>
+      </div>
+      <div>
+        <h4>Customer care</h4>
+        <a href="#">Help centre</a><a href="#">Returns</a><a href="#">Track order</a>
+      </div>
+      <div>
+        <h4>About</h4>
+        <a href="#">Our story</a><a href="#">Careers</a><a href="#">Contact us</a>
+      </div>
+      <div>
+        <h4>Get offers</h4>
+        <form class="news" onsubmit="event.preventDefault(); this.reset(); alert('Subscribed!');">
+          <input type="email" placeholder="Your email" required aria-label="Email">
+          <button>Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copy">© 2026 Bazaar Lane. All rights reserved.</div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="cart" id="cart" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-head">
+      <h3>Your cart</h3>
+      <button id="closeCart" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="total"><span>Total</span><strong id="cartTotal">Rs. 0</strong></div>
+      <button class="btn block" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Scripts: data → services → state → UI -->
+  <script>
+// Product data. Later this can be replaced by a backend/API response.
+const CATEGORIES = [
+  { id: 'electronics', name: 'Electronics', icon: '🎧' },
+  { id: 'fashion',     name: 'Fashion',     icon: '👕' },
+  { id: 'home',        name: 'Home & Kitchen', icon: '🏠' },
+  { id: 'beauty',      name: 'Beauty',      icon: '💄' },
+  { id: 'sports',      name: 'Sports',      icon: '⚽' },
+  { id: 'books',       name: 'Books',       icon: '📚' }
+];
+
+const PRODUCTS = [
+  { id: 1,  name: 'Wireless Bluetooth Headphones', category: 'electronics', price: 4500, oldPrice: 6000, rating: 4.5, emoji: '🎧' },
+  { id: 2,  name: 'Smart Watch Series 5',          category: 'electronics', price: 7999, oldPrice: 9999, rating: 4.3, emoji: '⌚' },
+  { id: 3,  name: 'Power Bank 20,000 mAh',         category: 'electronics', price: 3200, rating: 4.6, emoji: '🔋' },
+  { id: 4,  name: 'Men’s Cotton T-Shirt',          category: 'fashion',     price: 999,  oldPrice: 1499, rating: 4.1, emoji: '👕' },
+  { id: 5,  name: 'Women’s Lawn Suit (3 Piece)',   category: 'fashion',     price: 3499, rating: 4.4, emoji: '👗' },
+  { id: 6,  name: 'Running Shoes',                 category: 'sports',      price: 5200, oldPrice: 6500, rating: 4.2, emoji: '👟' },
+  { id: 7,  name: 'Non-Stick Frying Pan',          category: 'home',        price: 1800, rating: 4.0, emoji: '🍳' },
+  { id: 8,  name: 'Electric Kettle 1.8L',          category: 'home',        price: 2400, oldPrice: 2900, rating: 4.5, emoji: '☕' },
+  { id: 9,  name: 'Face Wash & Moisturizer Set',   category: 'beauty',      price: 1350, rating: 4.3, emoji: '🧴' },
+  { id: 10, name: 'Football (Size 5)',             category: 'sports',      price: 1600, rating: 4.4, emoji: '⚽' },
+  { id: 11, name: 'Atomic Habits – Paperback',     category: 'books',       price: 1250, rating: 4.9, emoji: '📖' },
+  { id: 12, name: 'Backpack – Water Resistant',    category: 'fashion',     price: 2700, oldPrice: 3300, rating: 4.2, emoji: '🎒' }
+].map(p => ({
+  ...p,
+  // Placeholder photo; falls back to the emoji if the image fails to load.
+  // Replace with your own image paths (e.g. 'images/headphones.jpg') if you like.
+  image: `https://picsum.photos/seed/bazaar${p.id}/400/300`
+}));
+
+</script>
+  <script>
+// Single place that fetches/filters products.
+// To use a real backend later, change only these functions.
+const ProductService = {
+  async getAll() { return PRODUCTS; },
+  async getCategories() { return CATEGORIES; },
+  async getById(id) { return PRODUCTS.find(p => p.id === id); },
+
+  filter(list, { category = 'all', query = '', sort = 'default' } = {}) {
+    let out = list.filter(p =>
+      (category === 'all' || p.category === category) &&
+      p.name.toLowerCase().includes(query.trim().toLowerCase())
+    );
+    if (sort === 'low')  out = [...out].sort((a, b) => a.price - b.price);
+    if (sort === 'high') out = [...out].sort((a, b) => b.price - a.price);
+    return out;
+  }
+};
+
+</script>
+  <script>
+// AI integration layer (placeholders).
+// Each function has a clear input/output, so a real AI API can replace
+// the body later without touching the UI code.
+const AIService = {
+  // Idea: "Customers also bought" based on cart contents.
+  async getRecommendations(cartItems, allProducts) {
+    return [];
+  },
+  // Idea: understand natural language ("cheap gift for dad").
+  async smartSearch(query, allProducts) {
+    return null; // null = use normal search
+  },
+  // Idea: chatbot for customer support.
+  async askAssistant(message) {
+    return 'AI assistant is not connected yet.';
+  }
+};
+
+</script>
+  <script>
+// Cart state + logic (no DOM code here).
+const Cart = {
+  items: [], // [{ product, qty }]
+  listeners: [],
+
+  onChange(fn) { this.listeners.push(fn); },
+  _emit() { this.listeners.forEach(fn => fn(this.items)); },
+
+  add(product) {
+    const found = this.items.find(i => i.product.id === product.id);
+    found ? found.qty++ : this.items.push({ product, qty: 1 });
+    this._emit();
+  },
+  changeQty(id, delta) {
+    const item = this.items.find(i => i.product.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) return this.remove(id);
+    this._emit();
+  },
+  remove(id) {
+    this.items = this.items.filter(i => i.product.id !== id);
+    this._emit();
+  },
+  clear() { this.items = []; this._emit(); },
+  count() { return this.items.reduce((n, i) => n + i.qty, 0); },
+  total() { return this.items.reduce((s, i) => s + i.qty * i.product.price, 0); }
+};
+
+</script>
+  <script>
+// UI layer: renders data and handles user actions.
+const $ = id => document.getElementById(id);
+const money = n => 'Rs. ' + n.toLocaleString('en-PK');
+
+const state = { category: 'all', query: '', sort: 'default', products: [], categories: [] };
+
+/* ---------- Render ---------- */
+function productCard(p) {
+  const off = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+  return `
+    <article class="card">
+      <div class="img">
+        <img src="${p.image}" alt="${p.name}" loading="lazy"
+             onerror="this.replaceWith(Object.assign(document.createElement('div'),{textContent:'${p.emoji}',style:'display:grid;place-items:center;height:100%;font-size:3.5rem'}))">
+        ${off ? `<span class="tag">-${off}%</span>` : ''}
+      </div>
+      <div class="body">
+        <h3>${p.name}</h3>
+        <div class="rating">★ ${p.rating}</div>
+        <div class="price">${money(p.price)}${p.oldPrice ? `<s>${money(p.oldPrice)}</s>` : ''}</div>
+        <button class="add" data-id="${p.id}">Add to cart</button>
+      </div>
+    </article>`;
+}
+
+function renderProducts() {
+  const list = ProductService.filter(state.products, state);
+  const cat = state.categories.find(c => c.id === state.category);
+  $('productsTitle').textContent = cat ? cat.name : 'All products';
+  $('productGrid').innerHTML = list.length
+    ? list.map(productCard).join('')
+    : '<p class="empty">No products found. Try a different search or category.</p>';
+}
+
+function renderCategories() {
+  $('catGrid').innerHTML = state.categories.map(c =>
+    `<button class="cat" data-cat="${c.id}"><span class="ico">${c.icon}</span>${c.name}</button>`).join('');
+  $('catNav').innerHTML =
+    [{ id: 'all', name: 'All' }, ...state.categories].map(c =>
+      `<button data-cat="${c.id}" class="${c.id === state.category ? 'active' : ''}">${c.name}</button>`).join('');
+}
+
+function renderCart() {
+  $('cartCount').textContent = Cart.count();
+  $('cartTotal').textContent = money(Cart.total());
+  $('cartItems').innerHTML = Cart.items.length ? Cart.items.map(({ product: p, qty }) => `
+    <div class="item">
+      <img src="${p.image}" alt="" onerror="this.style.visibility='hidden'">
+      <div>
+        <h4>${p.name}</h4>
+        <small>${money(p.price)}</small>
+        <div class="qty">
+          <button data-q="-1" data-id="${p.id}" aria-label="Decrease">−</button>
+          <span>${qty}</span>
+          <button data-q="1" data-id="${p.id}" aria-label="Increase">+</button>
+        </div>
+      </div>
+      <button class="rm" data-rm="${p.id}">Remove</button>
+    </div>`).join('') : '<p class="empty">Your cart is empty. Add something you like.</p>';
+}
+
+/* ---------- Actions ---------- */
+function setCategory(id) {
+  state.category = id;
+  renderCategories();
+  renderProducts();
+  $('products').scrollIntoView();
+}
+function toggleCart(open) {
+  $('cart').classList.toggle('open', open);
+  $('overlay').classList.toggle('show', open);
+  $('cart').setAttribute('aria-hidden', !open);
+}
+
+/* ---------- Events ---------- */
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.dataset.cat)  setCategory(t.dataset.cat);
+  if (t.closest('.cat')) setCategory(t.closest('.cat').dataset.cat);
+  if (t.classList.contains('add')) {
+    Cart.add(state.products.find(p => p.id === +t.dataset.id));
+    toggleCart(true);
+  }
+  if (t.dataset.q)  Cart.changeQty(+t.dataset.id, +t.dataset.q);
+  if (t.dataset.rm) Cart.remove(+t.dataset.rm);
+});
+$('openCart').onclick = () => toggleCart(true);
+$('closeCart').onclick = $('overlay').onclick = () => toggleCart(false);
+document.addEventListener('keydown', e => e.key === 'Escape' && toggleCart(false));
+$('sortSelect').onchange = e => { state.sort = e.target.value; renderProducts(); };
+$('searchForm').onsubmit = e => {
+  e.preventDefault();
+  state.query = $('searchInput').value;
+  state.category = 'all';
+  renderCategories(); renderProducts();
+  $('products').scrollIntoView();
+};
+$('checkoutBtn').onclick = () => {
+  if (!Cart.items.length) return alert('Your cart is empty.');
+  alert('Order placed! (Demo – no payment connected)');
+  Cart.clear(); toggleCart(false);
+};
+Cart.onChange(renderCart);
+
+/* ---------- Init ---------- */
+(async function init() {
+  [state.products, state.categories] = await Promise.all([ProductService.getAll(), ProductService.getCategories()]);
+  renderCategories(); renderProducts(); renderCart();
+})();
+
+</script>
+</body>
+</html>
